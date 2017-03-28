@@ -116,6 +116,21 @@ city
 headers <- xpathSApply(pageRender, "//*[@id='restaurant-menu']/h3", fun=xmlValue )
 headers
 
+items <- xpathSApply(pageRender, "//table")
+items
+items <- lapply(items, readHTMLTable, stringsAsFactors=FALSE)
+head(items)
+
+require(plyr)
+menu <- "http://www.menupages.com/restaurants/all-areas/all-neighborhoods/pizza/"
+doc <- htmlParse(menu)
+placeNameLink <- xpathApply(doc, "//table/tbody/tr/td[starts-with(@class, 'name-address')]/a[starts-with(@class, 'link')]",
+                            fun = function(x){c(Name=xmlValue(x, recursive = FALSE), 
+                                                Link=xmlAttrs(x)[2])})
+#placeNameLink
+placeNameLink <- ldply(placeNameLink)
+head(placeNameLink)
+tail(placeNameLink)
 
 
 
