@@ -1,3 +1,2 @@
-# This is a README
-# r_tutorial
-# tutorial
+# README
+R Tutorial
