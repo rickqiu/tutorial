@@ -52,7 +52,7 @@ simplefunc <- function(x, y)
 
 mapply(simplefunc, MyList, OtherList)
 
-# 5. sweep
+# 6. sweep
 MyPoints <- matrix(4:15, 4)
 MyPoints
 
@@ -68,11 +68,38 @@ MyPoints_Trans1
 MyPoints_Trans2=sweep(MyPoints_Trans1,2,MyPoints_sdev,"/")
 MyPoints_Trans2
 
-# 6. aggregate
+# 7. aggregate
 
+# 7.1 Find where the product sell best
+Mydf <- data.frame(DepPC=c("90","91","92","93","94","75"), 
+                   DProgr=c(1:120), 
+                   Qty=c(7:31,9:23,99:124,2:28,14:19,21:29,4,3,1:9,66), 
+                   Delivered=ifelse(rnorm(120)>0,TRUE,FALSE))
 
+head(Mydf, 15)
+tail(Mydf)
+sapply(Mydf, class)
+dim(Mydf)
+unique(Mydf$DepPC)
 
+# Where does the product sell best?
+DepQtySum <- aggregate(Mydf$Qty,by=Mydf["DepPC"],FUN=sum)
+#colnames(DepQtySum) <- c("DepPc", "Qty")
+#Ranked <- DepQtySum[order(DepQtySum$Qty, decreasing=TRUE), ]
+#Ranked
 
+require(ggplot2)
+ggplot(aggregate(Mydf$Qty,Mydf["DepPC"],sum), aes(x=DepPC, y=x)) +
+  geom_point() + 
+  labs(title="Sales per department - All", x="Dept. Post Code", y="Qty")
 
-
-
+# 7.2 caculate averages
+require(ggplot2)
+data("diamonds")
+head(diamonds)
+mean(diamonds$price)
+aggregate(price ~ cut, diamonds, mean)
+aggregate(price ~ cut, diamonds, mean, na.rm=TRUE)
+aggregate(price ~ cut + color, diamonds, mean)
+aggregate(cbind(price, carat) ~ cut, diamonds, mean)
+aggregate(cbind(price, carat) ~ cut + color, diamonds, mean)
