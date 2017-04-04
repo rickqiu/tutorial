@@ -2,8 +2,9 @@
 # The family comprises: apply, lapply , sapply, vapply, mapply, rapply, and tapply
 
 # 1. apply
-X<-matrix(rnorm(30), nrow=5, ncol=6)
-apply(X,2 ,sum)
+A <- matrix(rnorm(30), nrow=5, ncol=6)
+A
+apply(A, 2 ,sum)
 
 # 2. lapply
 A<-matrix(1:9, 3,3)
@@ -84,9 +85,10 @@ unique(Mydf$DepPC)
 
 # Where does the product sell best?
 DepQtySum <- aggregate(Mydf$Qty,by=Mydf["DepPC"],FUN=sum)
-#colnames(DepQtySum) <- c("DepPc", "Qty")
-#Ranked <- DepQtySum[order(DepQtySum$Qty, decreasing=TRUE), ]
-#Ranked
+DepQtySum
+colnames(DepQtySum) <- c("DepPc", "Qty")
+RankedDepQtySum <- DepQtySum[order(DepQtySum$Qty, decreasing=TRUE), ]
+RankedDepQtySum
 
 require(ggplot2)
 ggplot(aggregate(Mydf$Qty,Mydf["DepPC"],sum), aes(x=DepPC, y=x)) +
@@ -94,10 +96,10 @@ ggplot(aggregate(Mydf$Qty,Mydf["DepPC"],sum), aes(x=DepPC, y=x)) +
   labs(title="Sales per department - All", x="Dept. Post Code", y="Qty")
 
 # 7.2 caculate averages
-require(ggplot2)
 data("diamonds")
 head(diamonds)
 mean(diamonds$price)
+
 aggregate(price ~ cut, diamonds, mean)
 aggregate(price ~ cut, diamonds, mean, na.rm=TRUE)
 aggregate(price ~ cut + color, diamonds, mean)

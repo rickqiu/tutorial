@@ -1,5 +1,3 @@
-# Do group operations with the plyr
-
 # 1. Calculate Player's OBP
 # OBP = (H + BB + HBP) / (AB + BB + HBP + SF)
 # H = Hits, BB = Bases on Balls (Walks) , HBP = Times Hit by Pitch, AB = At Bats, SF = Sacrifice Flies
@@ -16,7 +14,7 @@ any(is.na(baseball$hbp))
 baseball <- baseball[baseball$ab >= 50, ]
 
 baseball$OBP <- with(baseball, (h + bb + hbp) / (ab + bb + hbp + sf))
-head(baseball)
+tail(baseball)
 
 obp <- function(data)
 {
