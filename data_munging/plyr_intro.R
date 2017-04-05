@@ -8,7 +8,10 @@ identical(lapply(theList, sum), llply(theList, sum))
 sapply(theList, sum)
 laply(theList, sum)
 
+require(ggplot2)
+data(diamonds)
 head(diamonds)
+
 aggregate(price ~ cut, diamonds, each(mean, median))
 
 colwise

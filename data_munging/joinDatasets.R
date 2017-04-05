@@ -1,0 +1,15 @@
+codes <- read.table(file="http://www.jaredlander.com/data/countryCodes.csv",  header = TRUE, sep=",", stringsAsFactors = FALSE)
+head(codes)
+countries <- read.table(file="http://www.jaredlander.com/data/GovType.csv",  header = TRUE, sep=",", stringsAsFactors = FALSE)
+head(countries)
+View(countries)
+
+countryMerged <- merge(x=codes, y=countries, by.x="Country.name", by.y="Country")
+View(countryMerged)
+class(countryMerged)
+
+require(plyr)
+codes <- rename(codes, c(Country.name="Country"))
+countryJoined <- join(x=codes, y=countries, by="Country")
+View(countryJoined)
+class(countryJoined)
