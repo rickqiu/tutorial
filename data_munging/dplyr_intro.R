@@ -61,4 +61,12 @@ dia %>% group_by(cut) %>% do(topN(., N=1))
 
 dia %>% group_by(cut) %>% arrange(desc(price)) %>% slice(1)
 
-
+models <- dia %>% group_by(cut) %>% do(Model=lm(price ~ carat, data=.))
+models
+class(models)
+class(models$cut)
+class(models$Model)
+class(models$Model[[1]])
+models$Model[[1]]
+models$Model[[2]]
+summary(models$Model[[1]])
